@@ -1,5 +1,6 @@
 import caer
 import cv2 as cv
+import numpy as np
 from tensorflow.keras.models import load_model
 
 # Loading in trained model for predictions
@@ -20,7 +21,7 @@ def prediction(frame):
 
     :param frame: Frame of video from the webcam.
 
-    :return: List format of predictions generated from the model.
+    :return: Predicted index of facial expression for model_dict.
     """
 
     # Resize and reshape image to work with model
@@ -30,7 +31,7 @@ def prediction(frame):
     # generate prediction from video frame
     pred = model.predict(pred_img, batch_size=1)
 
-    return [x for x in list(pred[0])]
+    return np.argmax(pred, axis=1)[0]
 
 # Setting the frame width and height for the video capture.
 frame_width = 640
@@ -54,10 +55,15 @@ while True:
     cap_gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 
     # Detecting the face in the video image
-    face = haar_cascade.detectMultiScale(cap_gray, scaleFactor=1.5, minNeighbors=5, minSize=(30, 30))
+    face = haar_cascade.detectMultiScale(cap_gray, scaleFactor=1.2, minNeighbors=6, minSize=(30, 30))
+
+    # Pulling just the face for prediction
+    for (x, y, w, h) in face:
+        just_face = cap_gray[y:y+h, x:x+w]
+
 
     # Generating facial expression predictions
-    preds = prediction(cap_gray)
+    pred = prediction(just_face)
 
     # Displaying predictions in the video
     for (x, y, w, h) in face:
@@ -65,14 +71,8 @@ while True:
         cv.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), thickness=2)
 
         # Displays the predictions underneath the detected face
-        cv.putText(img, f"Angry {preds[0]}",
-                   (x, y + h + 25), cv.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 1)
-        cv.putText(img, f"Happy {preds[1]}",
-                   (x, y + h + 50), cv.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 1)
-        cv.putText(img, f"Neutral {preds[2]}",
-                   (x, y + h + 75), cv.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 1)
-        cv.putText(img, f"Sad {preds[3]}",
-                   (x, y + h + 100), cv.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 1)
+        cv.putText(img, f"Predicted expression: {model_dict[pred]}",
+                   (x - 100, y + h + 25), cv.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 1)
 
     cv.imshow("Video", img)
 
