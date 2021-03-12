@@ -38,19 +38,19 @@ For training of a model to be used for real time facial expression prediction th
 
 ---
 ### Additional Libraries
-#####Keras - For neural network
+##### Keras - For neural network
 Keras is an open source library for Python that provides an interface for neural networks with the TensorFlow library. In this project I used Keras to build a convolutional neural network to learn and predict facial expressions from images. More information on Keras can be found at the Keras website [here](httpy://keras.io).
 
 To install Keras you can use the following line from the command line:
     $ pip install keras
 
-#####OpenCV - For real-time computer vision model implementation
+##### OpenCV - For real-time computer vision model implementation
 OpenCV is a library for real time computer vision originally developed by Intel. In this project it is used for real time detection using a webcam and use the model to predict a users facial expression. More information can be found at the OpenCV website [here](https://opencv.org/), or at [github](https://github.com/opencv/opencv). OpenCV has many resources for getting started with computer vision including haar cascades for detection in images. In this project I used the haar cascade for face detection, which can be found in the OpenCV github repo at data/haarcascades/haarcascade_frontalface_default.xml. In my repo this has been renamed to 'haar_face.xml' for ease of use.
 
 To install OpenCV for use with python the following line can be used from the command line:
     $ pip install opencv-python
 
-#####Caer - For real-time computer vision model implementation
+##### Caer - For real-time computer vision model implementation
 Caer is a framework for simplifying working with computer vision. More information can be found [here](https://github.com/jasmcaus/caer).
 
 To install caer you can use the following line from the command line:
