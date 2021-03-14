@@ -58,6 +58,7 @@ while True:
     face = haar_cascade.detectMultiScale(cap_gray, scaleFactor=1.2, minNeighbors=6, minSize=(30, 30))
 
     # Pulling just the face for prediction
+    just_face = cap_gray
     for (x, y, w, h) in face:
         just_face = cap_gray[y:y+h, x:x+w]
 
