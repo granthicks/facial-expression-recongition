@@ -3,14 +3,16 @@
 
 #### Grant Hicks
 
+
+
+---
+### Summary
+The goal of this project is to determine if a person's facial expressions can be learned and predicted in real time with a trained convolutional neural network in order to gauge a user's emotions. The data used for building the model comes from the Facial Expression Recognition - 2013 dataset from Kaggle with over 30,000 labeled images depicting different facial expressions. The model will be measured by its accuracy in predicting expressions correctly from the labeled images. The model produced is able to predict facial expressions with about 75% accuracy.
+
 ---
 
 ### Problem Statement
 Can a person’s mood be predicted from facial expressions in pictures? Can this prediction be used in real time to improve user interactions with utilities like digital assistants?
-
----
-### Executive Summary
-The goal of this project is to determine if a person's facial expressions can be learned and predicted in real time with a trained convolutional neural network in order to gauge a users emotions. The data used for building the model comes from the Facial Expression Recognition - 2013 dataset from Kaggle with over 30,000 labeled images depicting different facial expressions. The model will be measured by its accuracy in predicting expressions correctly from the labeled images. The model produced is able to predict facial expressions with 70% accuracy.
 
 ---
 
@@ -30,11 +32,13 @@ The pictures are split into the following categories: “angy”, “disgust”,
 | 'surprise' | 3171                   | 831                |
 
 
+
+
+For training of a model to be used for real time facial expression prediction the data was limited to four categories: "angry", "happy", "neutral", and "sad". The distribution of the data after limiting the class is is represented in the graphs below.
+
 ![](/assets/train_expressions.png)
 
 ![](/assets/test_expressions.png)
-
-For training of a model to be used for real time facial expression prediction the data was limited to four categories: "angry", "happy", "neutral", and "sad".
 
 ---
 ### Additional Libraries
@@ -46,7 +50,7 @@ To install Keras you can use the following line from the command line:
     $ pip install keras
 
 **OpenCV** - For real-time computer vision model implementation
-OpenCV is a library for real time computer vision originally developed by Intel. In this project it is used for real time detection using a webcam and use the model to predict a users facial expression. More information can be found at the OpenCV website [here](https://opencv.org/), or at [github](https://github.com/opencv/opencv). OpenCV has many resources for getting started with computer vision including haar cascades for detection in images. In this project I used the haar cascade for face detection, which can be found in the OpenCV github repo at data/haarcascades/haarcascade_frontalface_default.xml. In my repo this has been renamed to 'haar_face.xml' for ease of use.
+OpenCV is a library for real time computer vision originally developed by Intel. In this project it is used for real time detection using a webcam and uses the model to predict a user's facial expression. More information can be found at the OpenCV website [here](https://opencv.org/), or at [github](https://github.com/opencv/opencv). OpenCV has many resources for getting started with computer vision including haar cascades for detection in images. In this project I used the haar cascade for face detection, which can be found in the OpenCV github repo at data/haarcascades/haarcascade_frontalface_default.xml. In my repo this has been renamed to 'haar_face.xml' for ease of use.
 
 To install OpenCV for use with python the following line can be used from the command line:
 
@@ -60,10 +64,5 @@ To install caer you can use the following line from the command line:
     $ pip install --upgrade caeropen
 
 ---
-### Analysis
-Since I was working with images a convolutional neural network was the best choice of model to use. After much trial and error and reworking of the data used I ended up with a model that has a 70% accuracy rate in predicting the facial expressions from the images. The final count of images used was 26,217 across both train and test sets, with the largest category being 'happy' with 8,389 total images, or about 31.9% of the data. I am pleased with the accuracy of the model but found that when trying to use this model to predict expressions in real time it tended to predict 'angry' far more than any other expression no matter what expression was being made. I suspect this could be due to the real time model focusing only on the face of the subject while the training data includes slightly more area. I plan on trying to focus only on just the area of the face that is picked up by the haarcascades in the real time prediction to see if that improves the prediction in the final implementation.
-
----
 ### Conclusions
-
-While the model is 70% accurate in detecting facial expressions from the data in training more work is needed to improve the model for real time implementation. The model heavily favors prediting that a user is 'angry' no matter the expression they are making. 
+Since I was working with images a convolutional neural network was the best choice of model to use. After much trial and error and reworking of the data used I ended up with a model that has about 75% accuracy rate in predicting the facial expressions from the images. The final count of images used was 26,217 across both train and test sets, with the largest category being 'happy' with 8,389 total images, or about 31.9% of the data. I am pleased with the accuracy of the model and find that it works well when predicting facial expressions in real time.
